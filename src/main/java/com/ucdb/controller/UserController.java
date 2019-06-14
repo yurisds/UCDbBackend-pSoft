@@ -10,16 +10,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.annotation.JsonFilter;
 import com.ucdb.exceptions.user.UserNotFoundException;
 import com.ucdb.model.User;
 import com.ucdb.service.UserService;
 
+//Os Métodos findByEmail e getAll foram criados apenas para testes. serão removidos depois
+
 @RestController
 @RequestMapping({ "/v1/users" })
 public class UserController {
+
 	private UserService userService;
 
 	public UserController(UserService userService) {
@@ -46,9 +51,20 @@ public class UserController {
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 
+	@DeleteMapping(value = "/{email}")
+	public ResponseEntity delete(@RequestParam("email") String email) {
+		try {
+			userService.delete(email);
+			return new ResponseEntity(HttpStatus.OK);
+		} catch (Exception e) {
+			throw new InternalError("Something went wrong");
+		}
+
+	}
+
 	@GetMapping(value = "/{email}")
 	@ResponseBody
-	public ResponseEntity<User> findByEmail(@PathVariable String email) {
+	public ResponseEntity<User> findByEmail(@RequestParam("email") String email) {
 		User user = userService.findByEmail(email);
 		if (user == null) {
 			throw new UserNotFoundException("Email nao cadastrado");
@@ -63,7 +79,5 @@ public class UserController {
 		List user = userService.findAll();
 		return new ResponseEntity<List<User>>(user, HttpStatus.OK);
 	}
-
-
 
 }
