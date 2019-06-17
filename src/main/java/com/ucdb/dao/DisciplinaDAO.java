@@ -12,8 +12,9 @@ import com.ucdb.model.Disciplina;
 @Repository
 public interface DisciplinaDAO extends JpaRepository<Disciplina, Integer> {
 	
-	@Query(value = "select u from Disciplina u where u.nome like CONCAT('%',:pdisc,'%')")
-	List<Disciplina> findBySubString (@Param("pdisc")  String disc);
+	@Query(value = "select u.id, u.nome from Disciplina u where u.nome like CONCAT('%',:pdisc,'%')")
+	List<List<String>> findBySubString (@Param("pdisc")  String disc);
 	
-
+	@Query(value = "select u.id, u.nome from Disciplina u")
+	List<List<String>> getAll ();
 }

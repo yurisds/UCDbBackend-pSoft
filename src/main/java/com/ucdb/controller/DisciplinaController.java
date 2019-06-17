@@ -38,9 +38,16 @@ public class DisciplinaController {
 
 	@GetMapping(value = "/{substring}")
 	@ResponseBody
-	public ResponseEntity<List<Disciplina>> findBySubString(@PathVariable String substring) {
+	public ResponseEntity<List<List<String>>> findBySubString(@PathVariable String substring) {
 		List disciplinas = disciplinaService.findBySubString(substring);
-		return new ResponseEntity<List<Disciplina>>(disciplinas, HttpStatus.OK);
+		return new ResponseEntity<List<List<String>>>(disciplinas, HttpStatus.OK);
 	}
 
+	
+	@GetMapping(value = "/")
+	@ResponseBody
+	public ResponseEntity<List<List<String>>> getAll() {
+		List disciplina = disciplinaService.getAll();
+		return new ResponseEntity<List<List<String>>>(disciplina, HttpStatus.OK);
+	}
 }

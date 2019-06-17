@@ -21,10 +21,13 @@ public class DisciplinaService {
 		return disciplinaDao.save(disciplina);
 	}
 	
-	public List<Disciplina> findBySubString(String disciplina){
+	public List<List<String>> findBySubString(String disciplina){
 		return this.disciplinaDao.findBySubString(disciplina);
 	}
 	
+	public List<List<String>> getAll() {
+		return this.disciplinaDao.getAll();
+	}
 	
 	
 }
