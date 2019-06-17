@@ -2,6 +2,7 @@ package com.ucdb.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class User {
@@ -9,13 +10,17 @@ public class User {
 	@Id
 	private String email;
 
-	
+	@NotNull
 	private String firstName;
+	
+	@NotNull
 	private String lastName;
+	
+	@NotNull
 	private String password;
 
 	public User() {
-		
+
 	}
 
 	public User(String firstName, String lastName, String email, String password) {
@@ -45,7 +50,7 @@ public class User {
 	public String getEmail() {
 		return email;
 	}
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}

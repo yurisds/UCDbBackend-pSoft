@@ -50,4 +50,11 @@ public class DisciplinaController {
 		List disciplina = disciplinaService.getAll();
 		return new ResponseEntity<List<List<String>>>(disciplina, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/codigo/{codigo}")
+	@ResponseBody
+	public ResponseEntity<Disciplina> getById(@PathVariable long codigo){
+		Disciplina disciplina = disciplinaService.getById(codigo);
+		return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
+	}
 }

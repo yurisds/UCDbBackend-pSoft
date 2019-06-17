@@ -18,7 +18,7 @@ public class DisciplinaService {
 	}
 	
 	public Disciplina create(Disciplina disciplina) {
-		return disciplinaDao.save(disciplina);
+		return this.disciplinaDao.save(disciplina);
 	}
 	
 	public List<List<String>> findBySubString(String disciplina){
@@ -27,6 +27,10 @@ public class DisciplinaService {
 	
 	public List<List<String>> getAll() {
 		return this.disciplinaDao.getAll();
+	}
+	
+	public Disciplina getById(long codigo) {
+		return this.disciplinaDao.findById(codigo);
 	}
 	
 	
