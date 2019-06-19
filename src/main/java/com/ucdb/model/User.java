@@ -1,7 +1,11 @@
 package com.ucdb.model;
 
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -18,6 +22,10 @@ public class User {
 	
 	@NotNull
 	private String password;
+
+	@ManyToMany(mappedBy = "users")
+	private Set<Disciplina> disciplina;
+	
 
 	public User() {
 

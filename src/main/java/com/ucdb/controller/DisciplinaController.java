@@ -57,4 +57,10 @@ public class DisciplinaController {
 		Disciplina disciplina = disciplinaService.getById(codigo);
 		return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
 	}
+	
+	@PostMapping(value = "/curtiu/{id}/{email}")
+	@ResponseBody
+	public ResponseEntity<Disciplina> usuarioCurtiu(@PathVariable long id, @PathVariable String email) {
+		return new ResponseEntity<Disciplina>( this.disciplinaService.usuarioCurtiu(id, email) , HttpStatus.OK);
+	}
 }
