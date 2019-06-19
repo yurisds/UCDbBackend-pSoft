@@ -1,5 +1,6 @@
 package com.ucdb.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -23,19 +24,22 @@ public class Disciplina {
 	private String nome;
 
 	@ManyToMany
-	@JoinTable(name = "Likes", 
-	joinColumns = {@JoinColumn(name = "id_disciplina")}, 
-	inverseJoinColumns = {@JoinColumn(name = "email_user") })
+	@JoinTable(name = "Likes", joinColumns = { @JoinColumn(name = "id_disciplina") }, inverseJoinColumns = {
+			@JoinColumn(name = "email_user") })
 	private List<User> users;
-	
-	@Transient
-	private int likes;
 
 	public Disciplina() {
 	}
 
 	public Disciplina(String nome) {
 		this.nome = nome;
+		this.users = new ArrayList<>();
+	}
+
+	public int getLikes() {
+		if (this.users != null)
+			return this.users.size();
+		return 0;
 	}
 
 	public long getId() {
@@ -62,11 +66,4 @@ public class Disciplina {
 		this.users = users;
 	}
 
-	public int getLikes() {
-		return likes;
-	}
-
-	public void setLikes(int likes) {
-		this.likes = likes;
-	}
 }

@@ -13,38 +13,40 @@ import com.ucdb.model.User;
 @Service
 public class DisciplinaService {
 
-	
 	private final DisciplinaDAO disciplinaDao;
-	
+
 	@Autowired
 	private UserDAO userDAO;
 
 	public DisciplinaService(DisciplinaDAO disciplinaDao) {
 		this.disciplinaDao = disciplinaDao;
 	}
-	
+
 	public Disciplina create(Disciplina disciplina) {
 		return this.disciplinaDao.save(disciplina);
 	}
-	
-	public List<List<String>> findBySubString(String disciplina){
+
+	public List<List<String>> findBySubString(String disciplina) {
 		return this.disciplinaDao.findBySubString(disciplina);
 	}
-	
+
 	public List<List<String>> getAll() {
 		return this.disciplinaDao.getAll();
 	}
-	
+
 	public Disciplina getById(long codigo) {
 		return this.disciplinaDao.findById(codigo);
 	}
 
 	public Disciplina usuarioCurtiu(long id, String email) {
 		User u = this.userDAO.findByEmail(email);
-		Disciplina d = this.disciplinaDao.findById(id);	
-		d.getUsers().add(u);
-		
+		Disciplina d = this.disciplinaDao.findById(id);
+		if (!d.getUsers().contains(u)) {
+			d.getUsers().add(u);
+		} else {
+			d.getUsers().remove(u);
+		}
 		return this.disciplinaDao.save(d);
-		
-	}	
+
+	}
 }
