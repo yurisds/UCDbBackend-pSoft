@@ -43,24 +43,23 @@ public class DisciplinaController {
 		return new ResponseEntity<List<List<String>>>(disciplinas, HttpStatus.OK);
 	}
 
-	
 	@GetMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<List<List<String>>> getAll() {
 		List disciplina = disciplinaService.getAll();
 		return new ResponseEntity<List<List<String>>>(disciplina, HttpStatus.OK);
 	}
-	
+
 	@GetMapping(value = "/codigo/{codigo}")
 	@ResponseBody
-	public ResponseEntity<Disciplina> getById(@PathVariable long codigo){
+	public ResponseEntity<Disciplina> getById(@PathVariable long codigo) {
 		Disciplina disciplina = disciplinaService.getById(codigo);
 		return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
 	}
-	
-	@PostMapping(value = "/curtiu/{id}/{email}")
+
+	@PostMapping(value = "/curtir/{codigo}/{email}")
 	@ResponseBody
-	public ResponseEntity<Disciplina> usuarioCurtiu(@PathVariable long id, @PathVariable String email) {
-		return new ResponseEntity<Disciplina>( this.disciplinaService.usuarioCurtiu(id, email) , HttpStatus.OK);
+	public ResponseEntity<Disciplina> usuarioCurtiu(@PathVariable long codigo, @PathVariable String email) {
+		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioCurtiu(codigo, email), HttpStatus.OK);
 	}
 }
