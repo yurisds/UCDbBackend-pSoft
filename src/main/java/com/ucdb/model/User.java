@@ -76,6 +76,14 @@ public class User {
 		this.password = password;
 	}
 
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -102,5 +110,6 @@ public class User {
 			return false;
 		return true;
 	}
+
 	
 }
