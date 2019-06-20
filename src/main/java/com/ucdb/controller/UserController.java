@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,6 +22,7 @@ import com.ucdb.service.UserService;
 
 //Os Métodos findByEmail e getAll foram criados apenas para testes. serão removidos depois
 
+@CrossOrigin(origins="*", allowedHeaders = "*")
 @RestController
 @RequestMapping({ "/v1/users" })
 public class UserController {
@@ -61,7 +63,7 @@ public class UserController {
 		}
 
 	}
-
+	
 	@GetMapping(value = "/{email}")
 	@ResponseBody
 	public ResponseEntity<User> findByEmail(@RequestParam("email") String email) {

@@ -28,6 +28,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public LoginResponse authenticate(@RequestBody User user) throws ServletException {
 		// Recupera o usuario
+		System.out.print("POST LOGIN");
 		User authUser = userService.findByEmail(user.getEmail());
 
 		// verificacoes
