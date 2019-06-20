@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Disciplina {
 
@@ -31,7 +33,15 @@ public class Disciplina {
 	private List<User> users;
 	
 	@OneToMany
-	private List<Comment> comments = new ArrayList<>();
+	private List<Comment> comments;
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+	public List<Comment> getComments() {
+		return comments;
+	}
 
 	public Disciplina() {
 	}
@@ -39,6 +49,7 @@ public class Disciplina {
 	public Disciplina(String nome) {
 		this.nome = nome;
 		this.users = new ArrayList<>();
+		this.comments = new ArrayList<Comment>();
 	}
 
 	public int getLikes() {
@@ -71,45 +82,6 @@ public class Disciplina {
 		this.users = users;
 	}
 
-	public void addComment(User user) {
-		Comment comment = new Comment(this, user);
-		comments.add(comment);
-		user.getComments().add(comment);
-	}
-	
-	public void removeComment(User user) {
-		for (Iterator<Comment> iterator = comments.iterator(); iterator.hasNext();) {
-			Comment comment = iterator.next();
-			if (comment.getDisciplina().equals(this) && comment.getUser().equals(user)) {
-				iterator.remove();
-				comment.getUser().getComments().remove(comment);
-				comment.setDisciplina(null);
-				comment.setUser(null);
-			}
-			
-		}
-	}
-		
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Disciplina other = (Disciplina) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
 	
 }

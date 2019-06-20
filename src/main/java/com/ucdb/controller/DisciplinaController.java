@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
 import com.ucdb.service.DisciplinaService;
 
@@ -62,4 +63,14 @@ public class DisciplinaController {
 	public ResponseEntity<Disciplina> usuarioCurtiu(@PathVariable long codigo, @PathVariable String email) {
 		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioCurtiu(codigo, email), HttpStatus.OK);
 	}
+
+	@PostMapping(value = "/comentar/{codigo}/{email}/")
+	@ResponseBody
+	public ResponseEntity<Disciplina> usuarioComentou(@PathVariable long codigo, @PathVariable String email,
+			@RequestBody Comment comentario) {
+
+		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioComentou(codigo, email, comentario),
+				HttpStatus.OK);
+	}
+
 }

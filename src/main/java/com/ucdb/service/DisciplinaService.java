@@ -5,22 +5,24 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ucdb.dao.CommentDAO;
 import com.ucdb.dao.DisciplinaDAO;
 import com.ucdb.dao.UserDAO;
+import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
 import com.ucdb.model.User;
 
 @Service
 public class DisciplinaService {
 
-	private final DisciplinaDAO disciplinaDao;
+	@Autowired
+	private DisciplinaDAO disciplinaDao;
 
 	@Autowired
 	private UserDAO userDAO;
 
-	public DisciplinaService(DisciplinaDAO disciplinaDao) {
-		this.disciplinaDao = disciplinaDao;
-	}
+	@Autowired
+	private CommentDAO commentDao;
 
 	public Disciplina create(Disciplina disciplina) {
 		return this.disciplinaDao.save(disciplina);
@@ -35,6 +37,7 @@ public class DisciplinaService {
 	}
 
 	public Disciplina getById(long codigo) {
+		Disciplina d = this.disciplinaDao.findById(codigo);
 		return this.disciplinaDao.findById(codigo);
 	}
 
@@ -49,4 +52,23 @@ public class DisciplinaService {
 		return this.disciplinaDao.save(d);
 
 	}
+
+	public Disciplina usuarioComentou(long id, String email, Comment comentario) {
+		User u = this.userDAO.findByEmail(email);
+		Disciplina d = this.disciplinaDao.findById(id);
+
+		if (d != null && u != null) {
+			comentario.setDisciplina(d);
+			comentario.setUser(u);
+			Comment c = this.commentDao.save(comentario);
+			List<Comment> l = commentDao.findByDisciplina(d);
+			d.setComments(l);
+
+			return this.disciplinaDao.save(d);
+		}else {
+			throw new IllegalArgumentException();
+		}
+		
+	}
+
 }
