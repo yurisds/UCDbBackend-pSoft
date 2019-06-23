@@ -31,6 +31,8 @@ public class User {
 	@OneToMany
 	private List<Comment> comments = new ArrayList();
 	
+	@OneToMany
+	private List<Rating> ratings = new ArrayList<Rating>();
 
 	public User() {
 
@@ -82,6 +84,14 @@ public class User {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+	
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
 	}
 
 	@Override

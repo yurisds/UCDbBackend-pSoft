@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
+import com.ucdb.model.Rating;
 import com.ucdb.service.DisciplinaService;
 
 @RestController
@@ -73,4 +74,12 @@ public class DisciplinaController {
 				HttpStatus.OK);
 	}
 
+	@PostMapping(value = "/darnota/{codigo}/{email}")
+	@ResponseBody
+	public ResponseEntity<Disciplina> usuarioDeuNota(@PathVariable long codigo, @PathVariable String email,
+			@RequestBody Rating rating){
+		
+		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioDeuNota(codigo, email, rating),
+				HttpStatus.OK);
+	}
 }

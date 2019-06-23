@@ -34,6 +34,9 @@ public class Disciplina {
 	
 	@OneToMany
 	private List<Comment> comments;
+	
+	@OneToMany
+	private List<Rating> ratings;
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
@@ -50,6 +53,7 @@ public class Disciplina {
 		this.nome = nome;
 		this.users = new ArrayList<>();
 		this.comments = new ArrayList<Comment>();
+		this.ratings = new ArrayList<Rating>();
 	}
 
 	public int getLikes() {
@@ -82,6 +86,17 @@ public class Disciplina {
 		this.users = users;
 	}
 
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+	
+	public void addRating(User user) {
+		
+	}
 
 	
 }
