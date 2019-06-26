@@ -66,7 +66,7 @@ public class UserController {
 	
 	@GetMapping(value = "/{email}")
 	@ResponseBody
-	public ResponseEntity<User> findByEmail(@RequestParam("email") String email) {
+	public ResponseEntity<User> findByEmail(@PathVariable String email) {
 		User user = userService.findByEmail(email);
 		if (user == null) {
 			throw new UserNotFoundException("Email nao cadastrado");
