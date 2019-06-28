@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -24,42 +25,13 @@ public class Disciplina {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
-	@NotNull
 	private String nome;
-
-	@ManyToMany
-	@JoinTable(name = "Likes", joinColumns = { @JoinColumn(name = "id_disciplina") }, inverseJoinColumns = {
-			@JoinColumn(name = "email_user") })
-	private List<User> users;
-	
-	@OneToMany
-	private List<Comment> comments;
-	
-	@OneToMany
-	private List<Rating> ratings;
-
-	public void setComments(List<Comment> comments) {
-		this.comments = comments;
-	}
-
-	public List<Comment> getComments() {
-		return comments;
-	}
 
 	public Disciplina() {
 	}
 
 	public Disciplina(String nome) {
 		this.nome = nome;
-		this.users = new ArrayList<>();
-		this.comments = new ArrayList<Comment>();
-		this.ratings = new ArrayList<Rating>();
-	}
-
-	public int getLikes() {
-		if (this.users != null)
-			return this.users.size();
-		return 0;
 	}
 
 	public long getId() {
@@ -74,29 +46,7 @@ public class Disciplina {
 		return nome;
 	}
 
-	public void setNome(String disciplina) {
-		this.nome = disciplina;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
-	
-	public void addRating(User user) {
-		
-	}
-
-	
 }

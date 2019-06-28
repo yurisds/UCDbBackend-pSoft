@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
+import com.ucdb.model.Perfil;
 import com.ucdb.model.Rating;
 import com.ucdb.service.DisciplinaService;
 
@@ -40,46 +41,14 @@ public class DisciplinaController {
 
 	@GetMapping(value = "/{substring}")
 	@ResponseBody
-	public ResponseEntity<List<List<String>>> findBySubString(@PathVariable String substring) {
-		List disciplinas = disciplinaService.findBySubString(substring);
-		return new ResponseEntity<List<List<String>>>(disciplinas, HttpStatus.OK);
+	public ResponseEntity<List<Disciplina>> findBySubString(@PathVariable String substring) {
+		return new ResponseEntity<List<Disciplina>>(disciplinaService.findBySubString(substring), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/")
 	@ResponseBody
-	public ResponseEntity<List<List<String>>> getAll() {
+	public ResponseEntity<List<Disciplina>> getAll() {
 		List disciplina = disciplinaService.getAll();
-		return new ResponseEntity<List<List<String>>>(disciplina, HttpStatus.OK);
-	}
-
-	@GetMapping(value = "/codigo/{codigo}")
-	@ResponseBody
-	public ResponseEntity<Disciplina> getById(@PathVariable long codigo) {
-		Disciplina disciplina = disciplinaService.getById(codigo);
-		return new ResponseEntity<Disciplina>(disciplina, HttpStatus.OK);
-	}
-
-	@PostMapping(value = "/curtir/{codigo}/{email}")
-	@ResponseBody
-	public ResponseEntity<Disciplina> usuarioCurtiu(@PathVariable long codigo, @PathVariable String email) {
-		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioCurtiu(codigo, email), HttpStatus.OK);
-	}
-
-	@PostMapping(value = "/comentar/{codigo}/{email}/")
-	@ResponseBody
-	public ResponseEntity<Disciplina> usuarioComentou(@PathVariable long codigo, @PathVariable String email,
-			@RequestBody Comment comentario) {
-
-		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioComentou(codigo, email, comentario),
-				HttpStatus.OK);
-	}
-
-	@PostMapping(value = "/darnota/{codigo}/{email}")
-	@ResponseBody
-	public ResponseEntity<Disciplina> usuarioDeuNota(@PathVariable long codigo, @PathVariable String email,
-			@RequestBody Rating rating){
-		
-		return new ResponseEntity<Disciplina>(this.disciplinaService.usuarioDeuNota(codigo, email, rating),
-				HttpStatus.OK);
+		return new ResponseEntity<List<Disciplina>>(disciplina, HttpStatus.OK);
 	}
 }

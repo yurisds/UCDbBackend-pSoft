@@ -10,12 +10,13 @@ import org.springframework.stereotype.Repository;
 
 import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
+import com.ucdb.model.Perfil;
 
 @Repository
 public interface CommentDAO<T, ID extends Serializable> extends JpaRepository<Comment, Long> {
 	
 	Comment save(Comment c); 
 
-	List<Comment> findByDisciplina(Disciplina d);
+	List<Comment> findByPerfil(Perfil p);
 
 }

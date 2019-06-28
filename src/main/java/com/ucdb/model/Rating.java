@@ -22,10 +22,9 @@ public class Rating {
 	@JsonBackReference
 
 	@MapsId("disciplinaId")
-	private Disciplina disciplina;
+	private Perfil perfil;
 
 	@ManyToOne
-
 	@MapsId("userEmail")
 	private User user;
 
@@ -33,13 +32,13 @@ public class Rating {
 
 	public Rating() {}
 
-	public Rating(Disciplina disciplina, User user, float valor) {
-		if (disciplina == null || user == null) {
+	public Rating(Perfil perfil, User user, float valor) {
+		if (perfil == null || user == null) {
 			this.ratingId = new Rating_Id();
 		} else {
-			this.ratingId = new Rating_Id(user.getEmail(), disciplina.getId());
+			this.ratingId = new Rating_Id(user.getEmail(), perfil.getId());
 		}
-		this.disciplina = disciplina;
+		this.perfil = perfil;
 		this.user = user;
 		this.valor = valor;
 	}
@@ -52,12 +51,12 @@ public class Rating {
 		this.ratingId = ratingId;
 	}
 
-	public Disciplina getDisciplina() {
-		return disciplina;
+	public Perfil getDisciplina() {
+		return perfil;
 	}
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
+	public void setDisciplina(Perfil perfil) {
+		this.perfil = perfil;
 	}
 
 	public User getUser() {
@@ -75,5 +74,4 @@ public class Rating {
 	public void setValor(float valor) {
 		this.valor = valor;
 	}
-
 }
