@@ -45,6 +45,7 @@ public class DisciplinaController {
 
 	}
 	
+	//Only for deploy
 	@PostMapping(value = "/all")
 	@ResponseBody
 	public ResponseEntity<List<Disciplina>> createAll(@RequestBody List<Disciplina> disciplinas) {
