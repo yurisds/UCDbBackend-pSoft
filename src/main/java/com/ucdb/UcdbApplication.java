@@ -14,7 +14,7 @@ import com.ucdb.filter.TokenFilter;
 public class UcdbApplication {
 
 	
-    @Bean public FilterRegistrationBean corsFilter() {
+    @Bean public FilterRegistrationBean corsFilter1() {
     UrlBasedCorsConfigurationSource source = new
     UrlBasedCorsConfigurationSource(); CorsConfiguration config = new
     CorsConfiguration().applyPermitDefaultValues(); config.addAllowedMethod("*");
