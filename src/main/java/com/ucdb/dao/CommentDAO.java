@@ -15,8 +15,9 @@ import com.ucdb.model.Perfil;
 @Repository
 public interface CommentDAO<T, ID extends Serializable> extends JpaRepository<Comment, Long> {
 	
-	Comment save(Comment c); 
+	public Comment save(Comment c); 
 
-	List<Comment> findByPerfil(Perfil p);
-
+	public List<Comment> findByPerfil(Perfil p);
+	
+	public Comment findById(long id);
 }

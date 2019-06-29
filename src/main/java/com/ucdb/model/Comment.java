@@ -1,6 +1,8 @@
 package com.ucdb.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -19,7 +22,7 @@ public class Comment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long comments_id;
+	private long commentsId;
 
 	@ManyToOne
 	@JsonBackReference
@@ -32,9 +35,15 @@ public class Comment {
 	private String text;
 
 	private Date date;
-	
+
 	@Transient
 	private boolean usuarioComentou;
+
+	@Transient
+	private boolean comentarioApagado;
+
+	@OneToMany
+	private List<ReplyComment> reply;
 
 	public Comment() {
 	}
@@ -43,12 +52,12 @@ public class Comment {
 		this.perfil = perfil;
 		this.user = user;
 		this.text = texto;
+		this.reply = new ArrayList<ReplyComment>();
 	}
 
-	// pode ser necessário no futuro
-	/*
-	 * public long getId() { return this.comments_id; }
-	 */
+	public long getId() {
+		return commentsId;
+	}
 
 	public Perfil getPerfil() {
 		return this.perfil;
@@ -67,7 +76,9 @@ public class Comment {
 	}
 
 	public String getText() {
-		return text;
+		if (!isComentarioApagado())
+			return text;
+		return "O comentario foi apagado";
 	}
 
 	public void setText(String text) {
@@ -90,4 +101,19 @@ public class Comment {
 		this.date = date;
 	}
 
+	public boolean isComentarioApagado() {
+		return comentarioApagado;
+	}
+
+	public void setComentarioApagado(boolean comentarioApagado) {
+		this.comentarioApagado = comentarioApagado;
+	}
+
+	public List<ReplyComment> getReply() {
+		return reply;
+	}
+
+	public void setReply(List<ReplyComment> reply) {
+		this.reply = reply;
+	}
 }

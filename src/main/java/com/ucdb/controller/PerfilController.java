@@ -1,5 +1,6 @@
 package com.ucdb.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ucdb.model.Comment;
 import com.ucdb.model.Perfil;
 import com.ucdb.model.Rating;
+import com.ucdb.model.ReplyComment;
 import com.ucdb.service.PerfilService;
 
 @RestController
@@ -50,6 +52,15 @@ public class PerfilController {
 			@RequestBody Comment comentario) {
 
 		return new ResponseEntity<Comment>(this.perfilService.usuarioComentou(codigo, email, comentario),
+				HttpStatus.OK);
+	}
+	
+	@PostMapping(value = "/comentar/reply/{idComment}/{email}")
+	@ResponseBody
+	public ResponseEntity<ReplyComment> replyComment(@PathVariable long idComment, @PathVariable String email,
+			@RequestBody ReplyComment reply) {
+
+		return new ResponseEntity<ReplyComment>(this.perfilService.replyComment(idComment, email, reply),
 				HttpStatus.OK);
 	}
 

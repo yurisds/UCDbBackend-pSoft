@@ -10,12 +10,14 @@ import com.ucdb.dao.CommentDAO;
 import com.ucdb.dao.DisciplinaDAO;
 import com.ucdb.dao.PerfilDAO;
 import com.ucdb.dao.RatingDAO;
+import com.ucdb.dao.ReplyCommentDAO;
 import com.ucdb.dao.UserDAO;
 import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
 import com.ucdb.model.Perfil;
 import com.ucdb.model.Rating;
 import com.ucdb.model.Rating_Id;
+import com.ucdb.model.ReplyComment;
 import com.ucdb.model.User;
 
 @Service
@@ -23,7 +25,7 @@ public class PerfilService {
 
 	@Autowired
 	private PerfilDAO perfilDAO;
-	
+
 	@Autowired
 	private DisciplinaDAO disciplinaDAO;
 
@@ -32,9 +34,12 @@ public class PerfilService {
 
 	@Autowired
 	private CommentDAO commentDao;
-	
+
 	@Autowired
 	private RatingDAO ratingDao;
+	
+	@Autowired
+	private ReplyCommentDAO replyCommentDao;
 
 	public Perfil create(long id) {
 		Disciplina d = this.disciplinaDAO.findById(id);
@@ -55,6 +60,14 @@ public class PerfilService {
 		}
 
 		for (Comment c : p.getComments()) {
+			for(ReplyComment r: c.getReply()) {
+				if (r.getUser().equals(u.getEmail())) {
+					r.setUsuarioComentou(true);
+				} else {
+					r.setUsuarioComentou(false);
+				}
+			}
+			
 			if (c.getUser().equals(u.getEmail())) {
 				c.setUsuarioComentou(true);
 			} else {
@@ -77,29 +90,43 @@ public class PerfilService {
 
 	}
 
-	public Comment  usuarioComentou(long id, String email, Comment comentario) {
+	public Comment usuarioComentou(long id, String email, Comment comentario) {
 		User u = this.userDAO.findByEmail(email);
 		Perfil p = this.perfilDAO.findById(id);
-		
+
 		if (p != null && u != null) {
 			comentario.setperfil(p);
 			comentario.setUser(u);
 			comentario.setDate(new Date());
-			
+
 			p.getComments().add(comentario);
 
 			return this.commentDao.save(comentario);
+		} else {
+			throw new IllegalArgumentException();
+		}
+
+	}
+
+	public ReplyComment replyComment(long commentParent, String email, ReplyComment r) {
+		Comment c = commentDao.findById(commentParent);
+		User u = userDAO.findByEmail(email);
+
+		if (c != null && u != null) {
+			r.setParent(commentParent);
+			r.setUser(u);
+			r.setDate(new Date());
+			c.getReply().add(r);
+			return replyCommentDao.save(r);
 		}else {
 			throw new IllegalArgumentException();
 		}
-		
 	}
-	
+
 	public Perfil usuarioDeuNota(long id, String email, Rating rating) {
 		User u = this.userDAO.findByEmail(email);
 		Perfil p = this.perfilDAO.findById(id);
-		
-		
+
 		if (p != null && u != null) {
 			rating.setDisciplina(p);
 			rating.setUser(u);
@@ -109,9 +136,9 @@ public class PerfilService {
 			p.setRatings(l);
 
 			return this.perfilDAO.save(p);
-		}else {
+		} else {
 			throw new IllegalArgumentException();
 		}
-		
+
 	}
 }
