@@ -1,6 +1,8 @@
 package com.ucdb.service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,29 +51,45 @@ public class PerfilService {
 
 		return this.perfilDAO.save(perfil);
 	}
+	
+	public List<Perfil> createAll(List<Disciplina> disciplinas) {
+		List<Perfil> listPerfil = new ArrayList<Perfil>();
+		Iterator<Disciplina> it = disciplinas.iterator();
+		while (it.hasNext()) {
+			Disciplina d = it.next();
+			d = this.disciplinaDAO.findById(d.getId());
+			Perfil p = new Perfil();
+			p.setId(d.getId());
+			p.setDisciplina(d);
+			listPerfil.add(p);
+		}
+		return this.perfilDAO.saveAll(listPerfil);
+	}
 
 	public Perfil getById(long codigo, String email) {
 		Perfil p = this.perfilDAO.findById(codigo);
 		User u = this.userDAO.findByEmail(email);
-		if (p.getUsers().contains(u)) {
-			p.setUsuarioCurtiu(true);
-		} else {
-			p.setUsuarioCurtiu(false);
-		}
-
-		for (Comment c : p.getComments()) {
-			for(ReplyComment r: c.getReply()) {
-				if (r.getUser().equals(u.getEmail())) {
-					r.setUsuarioComentou(true);
-				} else {
-					r.setUsuarioComentou(false);
-				}
-			}
-			
-			if (c.getUser().equals(u.getEmail())) {
-				c.setUsuarioComentou(true);
+		if (u != null && p!= null) {
+			if (p.getUsers().contains(u)) {
+				p.setUsuarioCurtiu(true);
 			} else {
-				c.setUsuarioComentou(false);
+				p.setUsuarioCurtiu(false);
+			}
+
+			for (Comment c : p.getComments()) {
+				for(ReplyComment r: c.getReply()) {
+					if (r.getUser().equals(u.getEmail())) {
+						r.setUsuarioComentou(true);
+					} else {
+						r.setUsuarioComentou(false);
+					}
+				}
+
+				if (c.getUser().equals(u.getEmail())) {
+					c.setUsuarioComentou(true);
+				} else {
+					c.setUsuarioComentou(false);
+				}
 			}
 		}
 
@@ -141,4 +159,23 @@ public class PerfilService {
 		}
 
 	}
+	
+	public Perfil removeComment(long idComment, long idPerfil, String email) {
+		Perfil p = this.perfilDAO.findById(idPerfil);
+		Comment c = p.getCommentById(idComment);
+		
+		if (c != null && p != null && c.getUser().equals(email)) {
+			c.setComentarioApagado(true);
+			this.commentDao.save(c);
+			return this.perfilDAO.save(p);
+		} else {
+			return null;
+		}
+	}
+	
+	public List<Perfil> getAll() {
+		return this.perfilDAO.findAll();
+	}
+	
+	
 }

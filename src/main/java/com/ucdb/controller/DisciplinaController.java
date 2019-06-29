@@ -54,6 +54,7 @@ public class DisciplinaController {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		}
 		else {
+			List<Perfil> newListPerfil = this.perfilService.createAll(disciplinas);
 			return new ResponseEntity<List<Disciplina>>(listDisciplinas, HttpStatus.CREATED);
 		}
 	}

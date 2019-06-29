@@ -1,6 +1,7 @@
 package com.ucdb.model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -95,6 +96,18 @@ public class Perfil {
 
 	public List<Comment> getComments() {
 		return comments;
+	}
+	
+	public Comment getCommentById(long idComment) {
+		Iterator<Comment> it = this.comments.iterator();
+		while (it.hasNext()) {
+			Comment c = it.next();
+			if (c.getId() == idComment) {
+				return c;
+			}
+		}
+		
+		return null;
 	}
 
 	public Disciplina getDisciplina() {
