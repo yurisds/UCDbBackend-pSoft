@@ -44,7 +44,19 @@ public class DisciplinaController {
 		return new ResponseEntity<Disciplina>(newDisciplina, HttpStatus.CREATED);
 
 	}
-
+	
+	@PostMapping(value = "/all")
+	@ResponseBody
+	public ResponseEntity<List<Disciplina>> createAll(@RequestBody List<Disciplina> disciplinas) {
+		List listDisciplinas = this.disciplinaService.createAll(disciplinas);
+		if (listDisciplinas == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		else {
+			return new ResponseEntity<List<Disciplina>>(listDisciplinas, HttpStatus.CREATED);
+		}
+	}
+	
 	@GetMapping(value = "/{substring}")
 	@ResponseBody
 	public ResponseEntity<List<Disciplina>> findBySubString(@PathVariable String substring) {

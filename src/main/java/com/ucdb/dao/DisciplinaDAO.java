@@ -20,8 +20,7 @@ public interface DisciplinaDAO<T, ID extends Serializable> extends JpaRepository
 	List<Disciplina> getAll();
 
 	Disciplina save(Disciplina product);
-
-
+	
 	Disciplina findById(long codigo);
 
 }

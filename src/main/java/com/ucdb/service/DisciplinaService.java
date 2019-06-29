@@ -35,6 +35,10 @@ public class DisciplinaService {
 	public List<Disciplina> findBySubString(String disciplina) {
 		return this.disciplinaDao.findBySubString(disciplina);
 	}
+	
+	public List<Disciplina> createAll(List<Disciplina> disciplinas) {
+		return this.disciplinaDao.saveAll(disciplinas);
+	}
 
 	public List<Disciplina> getAll() {
 		return this.disciplinaDao.getAll();
