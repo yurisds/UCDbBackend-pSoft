@@ -23,11 +23,13 @@ public class PerfilController {
 	@Autowired
 	private PerfilService perfilService;
 
-	@PostMapping(value = "/{id}")
-	@ResponseBody
-	public ResponseEntity<Perfil> create(@PathVariable long id, @RequestBody Perfil perfil) {
-		return new ResponseEntity<>( this.perfilService.create(perfil, id), HttpStatus.CREATED);
-	}
+	/*
+	 * @PostMapping(value = "/{id}")
+	 * 
+	 * @ResponseBody public ResponseEntity<Perfil> create(@PathVariable long
+	 * id, @RequestBody Perfil perfil) { return new ResponseEntity<>(
+	 * this.perfilService.create(perfil, id), HttpStatus.CREATED); }
+	 */
 	
 	@GetMapping(value = "/codigo/{codigo}/{email}")
 	@ResponseBody

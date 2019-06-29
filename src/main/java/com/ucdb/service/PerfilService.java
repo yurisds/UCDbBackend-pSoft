@@ -36,8 +36,9 @@ public class PerfilService {
 	@Autowired
 	private RatingDAO ratingDao;
 
-	public Perfil create(Perfil perfil, long id) {
+	public Perfil create(long id) {
 		Disciplina d = this.disciplinaDAO.findById(id);
+		Perfil perfil = new Perfil();
 		perfil.setId(id);
 		perfil.setDisciplina(d);
 
@@ -84,6 +85,8 @@ public class PerfilService {
 			comentario.setperfil(p);
 			comentario.setUser(u);
 			comentario.setDate(new Date());
+			
+			p.getComments().add(comentario);
 
 			return this.commentDao.save(comentario);
 		}else {

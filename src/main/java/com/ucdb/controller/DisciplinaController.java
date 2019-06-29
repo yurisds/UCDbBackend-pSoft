@@ -2,6 +2,7 @@ package com.ucdb.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,12 +18,16 @@ import com.ucdb.model.Disciplina;
 import com.ucdb.model.Perfil;
 import com.ucdb.model.Rating;
 import com.ucdb.service.DisciplinaService;
+import com.ucdb.service.PerfilService;
 
 @RestController
 @RequestMapping({ "/v1/disciplinas" })
 public class DisciplinaController {
 
 	private DisciplinaService disciplinaService;
+	
+	@Autowired
+	private PerfilService perfilService;
 
 	public DisciplinaController(DisciplinaService disciplinaService) {
 		this.disciplinaService = disciplinaService;
@@ -35,6 +40,7 @@ public class DisciplinaController {
 		if (newDisciplina == null) {
 			throw new InternalError("Something went wrong");
 		}
+		Perfil newPerfil = perfilService.create(newDisciplina.getId());
 		return new ResponseEntity<Disciplina>(newDisciplina, HttpStatus.CREATED);
 
 	}
