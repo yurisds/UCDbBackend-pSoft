@@ -1,6 +1,5 @@
 package com.ucdb.controller;
 
-
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +21,13 @@ import com.ucdb.model.ReplyComment;
 import com.ucdb.service.PerfilService;
 
 @RestController
-@RequestMapping({"/v1/perfil"})
+@RequestMapping({ "/v1/perfil" })
 public class PerfilController {
 
 	@Autowired
 	private PerfilService perfilService;
 
-	/*
-	 * @PostMapping(value = "/{id}")
-	 * 
-	 * @ResponseBody public ResponseEntity<Perfil> create(@PathVariable long
-	 * id, @RequestBody Perfil perfil) { return new ResponseEntity<>(
-	 * this.perfilService.create(perfil, id), HttpStatus.CREATED); }
-	 */
-	
-	@GetMapping(value = "/") 
+	@GetMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAll() {
 		List<Perfil> listPerfil = this.perfilService.getAll();
@@ -45,8 +36,8 @@ public class PerfilController {
 		}
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/likes/") 
+
+	@GetMapping(value = "/likes/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAllByLikes() {
 		List<Perfil> listPerfil = this.perfilService.getAllByLikes();
@@ -55,8 +46,8 @@ public class PerfilController {
 		}
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
-	
-	@GetMapping(value = "/comments/") 
+
+	@GetMapping(value = "/comments/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAllByComments() {
 		List<Perfil> listPerfil = this.perfilService.getAllByComments();
@@ -65,8 +56,7 @@ public class PerfilController {
 		}
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
-	
-	
+
 	@GetMapping(value = "/codigo/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Perfil> getById(@PathVariable long codigo, @PathVariable String email) {
@@ -76,7 +66,6 @@ public class PerfilController {
 		}
 		return new ResponseEntity<Perfil>(perfil, HttpStatus.OK);
 	}
-	
 
 	@PostMapping(value = "/curtir/{codigo}/{email}")
 	@ResponseBody
@@ -84,55 +73,12 @@ public class PerfilController {
 		return new ResponseEntity<Perfil>(this.perfilService.usuarioCurtiu(codigo, email), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/comentar/{codigo}/{email}")
-	@ResponseBody
-	public ResponseEntity<Comment> usuarioComentou(@PathVariable long codigo, @PathVariable String email,
-			@RequestBody Comment comentario) {
-
-		return new ResponseEntity<Comment>(this.perfilService.usuarioComentou(codigo, email, comentario),
-				HttpStatus.OK);
-	}
-	
-	@PostMapping(value = "/comentar/reply/{idComment}/{email}")
-	@ResponseBody
-	public ResponseEntity<ReplyComment> replyComment(@PathVariable long idComment, @PathVariable String email,
-			@RequestBody ReplyComment reply) {
-
-		return new ResponseEntity<ReplyComment>(this.perfilService.replyComment(idComment, email, reply),
-				HttpStatus.OK);
-	}
-
 	@PostMapping(value = "/darnota/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Perfil> usuarioDeuNota(@PathVariable long codigo, @PathVariable String email,
-			@RequestBody Rating rating){
-		
-		return new ResponseEntity<Perfil>(this.perfilService.usuarioDeuNota(codigo, email, rating),
-				HttpStatus.OK);
+			@RequestBody Rating rating) {
+
+		return new ResponseEntity<Perfil>(this.perfilService.usuarioDeuNota(codigo, email, rating), HttpStatus.OK);
 	}
-	
-	@PutMapping(value = "/removecomment/{idComment}/{idPerfil}/{email}")
-	@ResponseBody
-	public ResponseEntity<Comment> removeComment(@PathVariable long idComment, @PathVariable long idPerfil, 
-			@PathVariable String email) {
-		Comment c = this.perfilService.removeComment(idComment, idPerfil, email);
-		if (c == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		} else {
-			return new ResponseEntity<Comment>(c, HttpStatus.ACCEPTED);
-		}
-	}
-	
-	@PutMapping(value = "/removecommentreply/{idComment}/{idReplyComment}/{idPerfil}/{email}")
-	@ResponseBody
-	public ResponseEntity<ReplyComment> removeComment(@PathVariable long idComment,@PathVariable long idReplyComment, @PathVariable long idPerfil, 
-			@PathVariable String email) {
-		ReplyComment r = this.perfilService.removeReplyComment(idComment, idReplyComment, idPerfil, email);
-		if (r == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
-		} else {
-			return new ResponseEntity<ReplyComment>(r, HttpStatus.ACCEPTED);
-		}
-	}
-	
+
 }

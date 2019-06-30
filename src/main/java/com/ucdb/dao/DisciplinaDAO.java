@@ -14,13 +14,13 @@ import com.ucdb.model.Disciplina;
 public interface DisciplinaDAO<T, ID extends Serializable> extends JpaRepository<Disciplina, Long> {
 
 	@Query(value = "select u from Disciplina u where UPPER(u.nome) like UPPER(CONCAT('%',:pdisc,'%'))")
-	List<Disciplina> findBySubString(@Param("pdisc") String disc);
+	public List<Disciplina> findBySubString(@Param("pdisc") String disc);
 
 	@Query(value = "select u from Disciplina u")
-	List<Disciplina> getAll();
+	public List<Disciplina> getAll();
 
-	Disciplina save(Disciplina product);
+	public Disciplina save(Disciplina product);
 	
-	Disciplina findById(long codigo);
+	public Disciplina findById(long codigo);
 
 }

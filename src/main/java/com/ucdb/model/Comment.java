@@ -32,18 +32,18 @@ public class Comment {
 	@ManyToOne
 	private User user;
 
+	private Date date;
+
 	@Column(name = "text")
 	private String text;
 
-	private Date date;
-
-	@Transient
-	private boolean usuarioComentou;
+	@OneToMany
+	private List<ReplyComment> reply;
 
 	private boolean comentarioApagado;
 
-	@OneToMany
-	private List<ReplyComment> reply;
+	@Transient
+	private boolean usuarioComentou;
 
 	public Comment() {
 	}
