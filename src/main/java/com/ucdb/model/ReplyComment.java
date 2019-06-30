@@ -33,9 +33,7 @@ public class ReplyComment {
 	@Transient
 	private boolean usuarioComentou;
 
-	public void setUsuarioComentou(boolean usuarioComentou) {
-		this.usuarioComentou = usuarioComentou;
-	}
+	private boolean comentarioApagado;
 
 	public ReplyComment() {
 	}
@@ -43,6 +41,7 @@ public class ReplyComment {
 	public ReplyComment(long comments_id, long parent, String text) {
 		super();
 		this.text = text;
+		this.comentarioApagado = false;
 	}
 
 	public long getComments_id() {
@@ -91,6 +90,18 @@ public class ReplyComment {
 
 	public void setCommentParent(Comment commentParent) {
 		this.commentParent = commentParent;
+	}
+
+	public void setUsuarioComentou(boolean usuarioComentou) {
+		this.usuarioComentou = usuarioComentou;
+	}
+
+	public boolean isComentarioApagado() {
+		return comentarioApagado;
+	}
+
+	public void setComentarioApagado(boolean comentarioApagado) {
+		this.comentarioApagado = comentarioApagado;
 	}
 
 }

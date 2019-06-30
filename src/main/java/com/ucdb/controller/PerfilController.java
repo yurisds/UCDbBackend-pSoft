@@ -92,13 +92,25 @@ public class PerfilController {
 	
 	@PutMapping(value = "/removecomment/{idComment}/{idPerfil}/{email}")
 	@ResponseBody
-	public ResponseEntity<Perfil> removeComment(@PathVariable long idComment, @PathVariable long idPerfil, 
+	public ResponseEntity<Comment> removeComment(@PathVariable long idComment, @PathVariable long idPerfil, 
 			@PathVariable String email) {
-		Perfil p = this.perfilService.removeComment(idComment, idPerfil, email);
-		if (p == null) {
+		Comment c = this.perfilService.removeComment(idComment, idPerfil, email);
+		if (c == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);
 		} else {
-			return new ResponseEntity<Perfil>(p, HttpStatus.ACCEPTED);
+			return new ResponseEntity<Comment>(c, HttpStatus.ACCEPTED);
+		}
+	}
+	
+	@PutMapping(value = "/removecommentreply/{idComment}/{idReplyComment}/{idPerfil}/{email}")
+	@ResponseBody
+	public ResponseEntity<ReplyComment> removeComment(@PathVariable long idComment,@PathVariable long idReplyComment, @PathVariable long idPerfil, 
+			@PathVariable String email) {
+		ReplyComment r = this.perfilService.removeReplyComment(idComment, idReplyComment, idPerfil, email);
+		if (r == null) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		} else {
+			return new ResponseEntity<ReplyComment>(r, HttpStatus.ACCEPTED);
 		}
 	}
 	

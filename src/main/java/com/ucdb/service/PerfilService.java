@@ -160,18 +160,31 @@ public class PerfilService {
 
 	}
 	
-	public Perfil removeComment(long idComment, long idPerfil, String email) {
+	public Comment removeComment(long idComment, long idPerfil, String email) {
 		Perfil p = this.perfilDAO.findById(idPerfil);
 		Comment c = p.getCommentById(idComment);
 		
 		if (c != null && p != null && c.getUser().equals(email)) {
 			c.setComentarioApagado(true);
-			this.commentDao.save(c);
-			return this.perfilDAO.save(p);
+			return this.commentDao.save(c);
 		} else {
 			return null;
 		}
 	}
+	
+	public ReplyComment removeReplyComment(long idComment, long idReplyComment, long idPerfil, String email) {
+		Perfil p = this.perfilDAO.findById(idPerfil);
+		Comment c = p.getCommentById(idComment);
+		ReplyComment r = c.getReplyCommentById(idReplyComment);
+		
+		if (r != null && p != null && c != null && r.getUser().equals(email)) {
+			r.setComentarioApagado(true);
+			return this.replyCommentDao.save(r);
+		} else {
+			return null;
+		}
+	}
+	
 	
 	public List<Perfil> getAll() {
 		return this.perfilDAO.findAll();

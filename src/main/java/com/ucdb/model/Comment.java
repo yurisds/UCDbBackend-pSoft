@@ -2,6 +2,7 @@ package com.ucdb.model;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -110,10 +111,24 @@ public class Comment {
 	}
 
 	public List<ReplyComment> getReply() {
-		return reply;
+		if (!isComentarioApagado())
+			return reply;
+		return new ArrayList<ReplyComment>();
 	}
 
 	public void setReply(List<ReplyComment> reply) {
 		this.reply = reply;
+	}
+
+	public ReplyComment getReplyCommentById(long idComment) {
+		Iterator<ReplyComment> it = this.reply.iterator();
+		while (it.hasNext()) {
+			ReplyComment r = it.next();
+			if (r.getComments_id() == idComment) {
+				return r;
+			}
+		}
+
+		return null;
 	}
 }
