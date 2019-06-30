@@ -39,7 +39,6 @@ public class Comment {
 	@Transient
 	private boolean usuarioComentou;
 
-	@Transient
 	private boolean comentarioApagado;
 
 	@OneToMany
@@ -53,6 +52,7 @@ public class Comment {
 		this.user = user;
 		this.text = texto;
 		this.reply = new ArrayList<ReplyComment>();
+		this.comentarioApagado = false;
 	}
 
 	public long getId() {
