@@ -39,7 +39,7 @@ public class CommentService {
 			p.addCommentsNumber();
 			return this.commentDao.save(comentario);
 		} else {
-			throw new IllegalArgumentException();
+			return null;
 		}
 
 	}

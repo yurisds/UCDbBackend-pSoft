@@ -1,7 +1,6 @@
 package com.ucdb.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -35,13 +34,7 @@ public class PerfilService {
 	private UserDAO userDAO;
 
 	@Autowired
-	private CommentDAO commentDao;
-
-	@Autowired
 	private RatingDAO ratingDao;
-
-	@Autowired
-	private ReplyCommentDAO replyCommentDao;
 
 	public Perfil create(long id) {
 		Disciplina d = this.disciplinaDAO.findById(id);
@@ -91,23 +84,26 @@ public class PerfilService {
 					c.setUsuarioComentou(false);
 				}
 			}
+			return p;
 		}
 
-		return p;
+		return null;
 	}
 
 	public Perfil usuarioCurtiu(long id, String email) {
 		User u = this.userDAO.findByEmail(email);
 		Perfil p = this.perfilDAO.findById(id);
-		if (!p.getUsers().contains(u)) {
-			p.getUsers().add(u);
-			p.addLikes();
-		} else {
-			p.getUsers().remove(u);
-			p.removeLikes();
+		if (p != null) {
+			if (!p.getUsers().contains(u)) {
+				p.getUsers().add(u);
+				p.addLikes();
+			} else {
+				p.getUsers().remove(u);
+				p.removeLikes();
+			}
+			return this.perfilDAO.save(p);
 		}
-		return this.perfilDAO.save(p);
-
+		return null;
 	}
 
 	public List<Perfil> getAll() {
