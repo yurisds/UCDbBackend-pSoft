@@ -27,7 +27,8 @@ public class UcdbApplication {
 	public FilterRegistrationBean filterJwt() {
 		FilterRegistrationBean filterRb = new FilterRegistrationBean();
 		filterRb.setFilter(new TokenFilter());
-		filterRb.addUrlPatterns("/private");
+		filterRb.addUrlPatterns("/v1/perfil/*");
+		filterRb.addUrlPatterns("/v1/users/*");
 		return filterRb;
 	}
 	

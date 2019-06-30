@@ -21,6 +21,9 @@ public class TokenFilter extends GenericFilterBean {
 		
 		HttpServletRequest req = (HttpServletRequest) request;
 		
+		System.out.println(req.getMethod());
+				
+		if (!(req.getRequestURI().contentEquals("/api/v1/users/") && req.getMethod().contentEquals("POST"))) {
 		String header = req.getHeader("Authorization");
 		
 		if(header == null || !header.startsWith("Bearer ")) {
@@ -36,7 +39,9 @@ public class TokenFilter extends GenericFilterBean {
 			throw new ServletException("Token invalido ou expirado!");
 		}
 		
+		}
 		chain.doFilter(request, response);
+
 	}
 
 }
