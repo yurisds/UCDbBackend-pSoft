@@ -22,18 +22,17 @@ public class ReplyComment {
 
 	private String text;
 
+	private Date date;
+
 	@ManyToOne
 	private User user;
-
-	private Date date;
 
 	@ManyToOne
 	private Comment commentParent;
 
+	private boolean comentarioApagado;
 	@Transient
 	private boolean usuarioComentou;
-
-	private boolean comentarioApagado;
 
 	public ReplyComment() {
 	}
@@ -57,7 +56,9 @@ public class ReplyComment {
 	}
 
 	public String getText() {
-		return text;
+		if (!isComentarioApagado())
+			return text;
+		return "O comentario foi apagado";
 	}
 
 	public void setText(String text) {

@@ -39,7 +39,7 @@ public class PerfilService {
 
 	@Autowired
 	private RatingDAO ratingDao;
-	
+
 	@Autowired
 	private ReplyCommentDAO replyCommentDao;
 
@@ -51,7 +51,7 @@ public class PerfilService {
 
 		return this.perfilDAO.save(perfil);
 	}
-	
+
 	public List<Perfil> createAll(List<Disciplina> disciplinas) {
 		List<Perfil> listPerfil = new ArrayList<Perfil>();
 		Iterator<Disciplina> it = disciplinas.iterator();
@@ -69,7 +69,7 @@ public class PerfilService {
 	public Perfil getById(long codigo, String email) {
 		Perfil p = this.perfilDAO.findById(codigo);
 		User u = this.userDAO.findByEmail(email);
-		if (u != null && p!= null) {
+		if (u != null && p != null) {
 			if (p.getUsers().contains(u)) {
 				p.setUsuarioCurtiu(true);
 			} else {
@@ -77,7 +77,7 @@ public class PerfilService {
 			}
 
 			for (Comment c : p.getComments()) {
-				for(ReplyComment r: c.getReply()) {
+				for (ReplyComment r : c.getReply()) {
 					if (r.getUser().equals(u.getEmail())) {
 						r.setUsuarioComentou(true);
 					} else {
@@ -110,41 +110,19 @@ public class PerfilService {
 
 	}
 
-	public Comment usuarioComentou(long id, String email, Comment comentario) {
-		User u = this.userDAO.findByEmail(email);
-		Perfil p = this.perfilDAO.findById(id);
-
-		if (p != null && u != null) {
-			comentario.setperfil(p);
-			comentario.setUser(u);
-			comentario.setDate(new Date());
-
-			p.getComments().add(comentario);
-
-			p.addCommentsNumber();
-			return this.commentDao.save(comentario);
-		} else {
-			throw new IllegalArgumentException();
-		}
-
+	public List<Perfil> getAll() {
+		return this.perfilDAO.findAll();
 	}
 
-	public ReplyComment replyComment(long commentParent, String email, ReplyComment r) {
-		Comment c = commentDao.findById(commentParent);
-		User u = userDAO.findByEmail(email);
-		Perfil p = this.perfilDAO.findById(c.getPerfil().getId());
-		if (c != null && u != null) {
-			p.addCommentsNumber();
-			r.setParent(commentParent);
-			r.setUser(u);
-			r.setDate(new Date());
-			c.getReply().add(r);
-			return replyCommentDao.save(r);
-		}else {
-			throw new IllegalArgumentException();
-		}
+	public List<Perfil> getAllByLikes() {
+		return this.perfilDAO.findAllByLikes();
 	}
 
+	public List<Perfil> getAllByComments() {
+		return this.perfilDAO.findAllByComments();
+	}
+
+// opçoes que foram removidas do projeto
 	public Perfil usuarioDeuNota(long id, String email, Rating rating) {
 		User u = this.userDAO.findByEmail(email);
 		Perfil p = this.perfilDAO.findById(id);
@@ -163,48 +141,5 @@ public class PerfilService {
 		}
 
 	}
-	
-	public Comment removeComment(long idComment, long idPerfil, String email) {
-		Perfil p = this.perfilDAO.findById(idPerfil);
-		Comment c = p.getCommentById(idComment);
-		
-		if (c != null && p != null && c.getUser().equals(email)) {
-			for (ReplyComment r : c.getReply()) {
-				p.removeCommentsNumber();
-			}
-			c.setComentarioApagado(true);
-			p.removeCommentsNumber();
-			return this.commentDao.save(c);
-		} else {
-			return null;
-		}
-	}
-	
-	public ReplyComment removeReplyComment(long idComment, long idReplyComment, long idPerfil, String email) {
-		Perfil p = this.perfilDAO.findById(idPerfil);
-		Comment c = p.getCommentById(idComment);
-		ReplyComment r = c.getReplyCommentById(idReplyComment);
-		
-		if (r != null && p != null && c != null && r.getUser().equals(email)) {
-			r.setComentarioApagado(true);
-			p.removeCommentsNumber();
-			return this.replyCommentDao.save(r);
-		} else {
-			return null;
-		}
-	}
-	
-	
-	public List<Perfil> getAll() {
-		return this.perfilDAO.findAll();
-	}
-	
-	public List<Perfil> getAllByLikes() {
-		return this.perfilDAO.findAllByLikes();
-	}
 
-	public List<Perfil> getAllByComments() {
-		return this.perfilDAO.findAllByComments();
-	}
-	
 }

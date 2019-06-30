@@ -17,30 +17,30 @@ import javax.persistence.Transient;
 
 @Entity
 public class Perfil {
-	
+
 	@Id
 	private long id;
 
 	@OneToOne
 	private Disciplina disciplina;
-	
+
 	@ManyToMany
 	@JoinTable(name = "Likes", joinColumns = { @JoinColumn(name = "id_disciplina") }, inverseJoinColumns = {
 			@JoinColumn(name = "email_user") })
 	private List<User> users;
-	
+
 	@OneToMany
 	private List<Comment> comments;
-	
+
 	@OneToMany
 	private List<Rating> ratings;
-	
+
+	private long likes;
+
+	private long commentsNumber;
+
 	@Transient
 	private boolean usuarioCurtiu;
-	
-	private long likes = 0;
-	
-	private long commentsNumber = 0;
 
 	public Perfil() {
 	}
@@ -50,8 +50,10 @@ public class Perfil {
 		this.users = users;
 		this.comments = new ArrayList<Comment>();
 		this.ratings = new ArrayList<Rating>();
+		this.likes = 0;
+		this.commentsNumber = 0;
 	}
-	
+
 	public long getId() {
 		return id;
 	}
@@ -81,9 +83,9 @@ public class Perfil {
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
-	
+
 	public void addRating(User user) {
-		
+
 	}
 
 	public boolean isUsuarioCurtiu() {
@@ -93,7 +95,7 @@ public class Perfil {
 	public void setUsuarioCurtiu(boolean usuarioCurtiu) {
 		this.usuarioCurtiu = usuarioCurtiu;
 	}
-	
+
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
@@ -101,7 +103,7 @@ public class Perfil {
 	public List<Comment> getComments() {
 		return comments;
 	}
-	
+
 	public Comment getCommentById(long idComment) {
 		Iterator<Comment> it = this.comments.iterator();
 		while (it.hasNext()) {
@@ -110,7 +112,7 @@ public class Perfil {
 				return c;
 			}
 		}
-		
+
 		return null;
 	}
 
@@ -123,17 +125,18 @@ public class Perfil {
 	}
 
 	public void addLikes() {
-		this.likes ++;
+		this.likes++;
 	}
+
 	public void removeLikes() {
-		this.likes --;
+		this.likes--;
 	}
 
 	public void addCommentsNumber() {
-		this.commentsNumber ++;
+		this.commentsNumber++;
 	}
-	
+
 	public void removeCommentsNumber() {
-		this.commentsNumber --;
+		this.commentsNumber--;
 	}
 }
