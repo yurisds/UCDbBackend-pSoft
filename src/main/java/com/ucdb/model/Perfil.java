@@ -39,6 +39,8 @@ public class Perfil {
 	private boolean usuarioCurtiu;
 	
 	private long likes = 0;
+	
+	private long commentsNumber = 0;
 
 	public Perfil() {
 	}
@@ -125,5 +127,13 @@ public class Perfil {
 	}
 	public void removeLikes() {
 		this.likes --;
+	}
+
+	public void addCommentsNumber() {
+		this.commentsNumber ++;
+	}
+	
+	public void removeCommentsNumber() {
+		this.commentsNumber --;
 	}
 }

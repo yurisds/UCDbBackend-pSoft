@@ -121,6 +121,7 @@ public class PerfilService {
 
 			p.getComments().add(comentario);
 
+			p.addCommentsNumber();
 			return this.commentDao.save(comentario);
 		} else {
 			throw new IllegalArgumentException();
@@ -131,8 +132,9 @@ public class PerfilService {
 	public ReplyComment replyComment(long commentParent, String email, ReplyComment r) {
 		Comment c = commentDao.findById(commentParent);
 		User u = userDAO.findByEmail(email);
-
+		Perfil p = this.perfilDAO.findById(c.getPerfil().getId());
 		if (c != null && u != null) {
+			p.addCommentsNumber();
 			r.setParent(commentParent);
 			r.setUser(u);
 			r.setDate(new Date());
@@ -167,7 +169,11 @@ public class PerfilService {
 		Comment c = p.getCommentById(idComment);
 		
 		if (c != null && p != null && c.getUser().equals(email)) {
+			for (ReplyComment r : c.getReply()) {
+				p.removeCommentsNumber();
+			}
 			c.setComentarioApagado(true);
+			p.removeCommentsNumber();
 			return this.commentDao.save(c);
 		} else {
 			return null;
@@ -181,6 +187,7 @@ public class PerfilService {
 		
 		if (r != null && p != null && c != null && r.getUser().equals(email)) {
 			r.setComentarioApagado(true);
+			p.removeCommentsNumber();
 			return this.replyCommentDao.save(r);
 		} else {
 			return null;
@@ -196,6 +203,8 @@ public class PerfilService {
 		return this.perfilDAO.findAllByLikes();
 	}
 
-	
+	public List<Perfil> getAllByComments() {
+		return this.perfilDAO.findAllByComments();
+	}
 	
 }

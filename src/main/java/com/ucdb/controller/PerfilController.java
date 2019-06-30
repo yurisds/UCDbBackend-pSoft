@@ -56,6 +56,16 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/comments/") 
+	@ResponseBody
+	public ResponseEntity<List<Perfil>> getAllByComments() {
+		List<Perfil> listPerfil = this.perfilService.getAllByComments();
+		if (listPerfil == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
+	}
+	
 	
 	@GetMapping(value = "/codigo/{codigo}/{email}")
 	@ResponseBody
