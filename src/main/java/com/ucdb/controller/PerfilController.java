@@ -46,6 +46,17 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/likes/") 
+	@ResponseBody
+	public ResponseEntity<List<Perfil>> getAllByLikes() {
+		List<Perfil> listPerfil = this.perfilService.getAllByLikes();
+		if (listPerfil == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
+	}
+	
+	
 	@GetMapping(value = "/codigo/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Perfil> getById(@PathVariable long codigo, @PathVariable String email) {

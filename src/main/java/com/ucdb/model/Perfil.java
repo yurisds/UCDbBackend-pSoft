@@ -37,6 +37,8 @@ public class Perfil {
 	
 	@Transient
 	private boolean usuarioCurtiu;
+	
+	private long likes = 0;
 
 	public Perfil() {
 	}
@@ -116,5 +118,12 @@ public class Perfil {
 
 	public void setDisciplina(Disciplina disciplina) {
 		this.disciplina = disciplina;
+	}
+
+	public void addLikes() {
+		this.likes ++;
+	}
+	public void removeLikes() {
+		this.likes --;
 	}
 }

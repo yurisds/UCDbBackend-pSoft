@@ -101,8 +101,10 @@ public class PerfilService {
 		Perfil p = this.perfilDAO.findById(id);
 		if (!p.getUsers().contains(u)) {
 			p.getUsers().add(u);
+			p.addLikes();
 		} else {
 			p.getUsers().remove(u);
+			p.removeLikes();
 		}
 		return this.perfilDAO.save(p);
 
@@ -189,6 +191,11 @@ public class PerfilService {
 	public List<Perfil> getAll() {
 		return this.perfilDAO.findAll();
 	}
+	
+	public List<Perfil> getAllByLikes() {
+		return this.perfilDAO.findAllByLikes();
+	}
+
 	
 	
 }
