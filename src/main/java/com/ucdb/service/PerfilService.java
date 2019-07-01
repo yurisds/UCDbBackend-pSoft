@@ -101,7 +101,8 @@ public class PerfilService {
 				p.getUsers().remove(u);
 				p.removeLikes();
 			}
-			return this.perfilDAO.save(p);
+			this.perfilDAO.save(p);
+			return getById(id, email);
 		}
 		return null;
 	}
