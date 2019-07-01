@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ucdb.model.Comment;
 import com.ucdb.model.Disciplina;
 import com.ucdb.model.Perfil;
-import com.ucdb.model.Rating;
 import com.ucdb.service.DisciplinaService;
 import com.ucdb.service.PerfilService;
 

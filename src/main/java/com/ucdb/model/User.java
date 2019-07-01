@@ -20,21 +20,19 @@ public class User {
 
 	@NotNull
 	private String firstName;
-	
+
 	@NotNull
 	private String lastName;
-	
+
 	@NotNull
 	private String password;
 
 	@ManyToMany(mappedBy = "users")
 	private Set<Perfil> perfil;
-	
+
 	@OneToMany
 	private List<Comment> comments = new ArrayList();
-	
-	@OneToMany
-	private List<Rating> ratings = new ArrayList<Rating>();
+
 
 	public User() {
 
@@ -79,21 +77,10 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Comment> getComments() {
-		return comments;
-	}
-
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
-	
-	public List<Rating> getRatings() {
-		return ratings;
-	}
 
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
-	}
 
 	@Override
 	public int hashCode() {
@@ -102,8 +89,6 @@ public class User {
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		return result;
 	}
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -122,5 +107,4 @@ public class User {
 		return true;
 	}
 
-	
 }

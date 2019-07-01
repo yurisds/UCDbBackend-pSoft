@@ -32,9 +32,6 @@ public class Perfil {
 	@OneToMany
 	private List<Comment> comments;
 
-	@OneToMany
-	private List<Rating> ratings;
-
 	private long likes;
 
 	private long commentsNumber;
@@ -49,7 +46,7 @@ public class Perfil {
 		this.disciplina = disciplina;
 		this.users = users;
 		this.comments = new ArrayList<Comment>();
-		this.ratings = new ArrayList<Rating>();
+
 		this.likes = 0;
 		this.commentsNumber = 0;
 	}
@@ -74,14 +71,6 @@ public class Perfil {
 
 	public void setUsers(List<User> users) {
 		this.users = users;
-	}
-
-	public List<Rating> getRatings() {
-		return ratings;
-	}
-
-	public void setRatings(List<Rating> ratings) {
-		this.ratings = ratings;
 	}
 
 	public void addRating(User user) {

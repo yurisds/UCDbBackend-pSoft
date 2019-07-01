@@ -72,8 +72,8 @@ public class Comment {
 		this.perfil = perfil;
 	}
 
-	public String getUser() {
-		return user.getEmail();
+	public User getUser() {
+		return this.user;
 	}
 
 	public void setUser(User user) {

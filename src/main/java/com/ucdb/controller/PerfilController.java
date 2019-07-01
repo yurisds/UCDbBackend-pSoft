@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ucdb.model.Comment;
 import com.ucdb.model.Perfil;
-import com.ucdb.model.Rating;
 import com.ucdb.model.ReplyComment;
 import com.ucdb.service.PerfilService;
 
@@ -71,14 +70,6 @@ public class PerfilController {
 	@ResponseBody
 	public ResponseEntity<Perfil> usuarioCurtiu(@PathVariable long codigo, @PathVariable String email) {
 		return new ResponseEntity<Perfil>(this.perfilService.usuarioCurtiu(codigo, email), HttpStatus.OK);
-	}
-
-	@PostMapping(value = "/darnota/{codigo}/{email}")
-	@ResponseBody
-	public ResponseEntity<Perfil> usuarioDeuNota(@PathVariable long codigo, @PathVariable String email,
-			@RequestBody Rating rating) {
-
-		return new ResponseEntity<Perfil>(this.perfilService.usuarioDeuNota(codigo, email, rating), HttpStatus.OK);
 	}
 
 }
