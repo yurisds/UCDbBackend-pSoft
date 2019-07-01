@@ -71,7 +71,7 @@ public class User {
 		this.email = email;
 	}
 
-	public String getPassword() {
+	public String Password() {
 		return password;
 	}
 

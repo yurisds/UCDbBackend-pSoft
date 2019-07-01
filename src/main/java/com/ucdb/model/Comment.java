@@ -1,9 +1,13 @@
 package com.ucdb.model;
 
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +36,7 @@ public class Comment {
 	@ManyToOne
 	private User user;
 
-	private Date date;
+	private ZonedDateTime date;
 
 	@Column(name = "text")
 	private String text;
@@ -95,10 +99,14 @@ public class Comment {
 	}
 
 	public String getDate() {
-		return date.toString();
+		DateTimeFormatter formatador = DateTimeFormatter
+				  .ofLocalizedDateTime(FormatStyle.SHORT)
+				  .withLocale(new Locale("pt", "br"));
+
+		return date.format(formatador);
 	}
 
-	public void setDate(Date date) {
+	public void setDate(ZonedDateTime date) {
 		this.date = date;
 	}
 

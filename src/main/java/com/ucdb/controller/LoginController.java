@@ -36,7 +36,7 @@ public class LoginController {
 			throw new ServletException("Usuario nao encontrado!");
 		}
 
-		if (!authUser.getPassword().equals(user.getPassword())) {
+		if (!authUser.Password().equals(user.Password())) {
 			throw new ServletException("Senha invalida!");
 		}
 
