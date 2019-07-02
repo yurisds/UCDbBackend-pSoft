@@ -50,7 +50,7 @@ public class CommentService {
 		Perfil p = this.perfilDAO.findById(idPerfil);
 		Comment c = p.getCommentById(idComment);
 
-		if (c != null && p != null && c.getUser().equals(email)) {
+		if (c != null && p != null) {
 			for (ReplyComment r : c.getReply()) {
 				p.removeCommentsNumber();
 			}
