@@ -1,5 +1,7 @@
 package com.ucdb.service;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,8 @@ public class ReplyCommentService {
 			p.addCommentsNumber();
 			r.setParent(commentParent);
 			r.setUser(u);
-			r.setDate(new Date());
+			ZoneId fuso = ZoneId.of("America/Sao_Paulo");
+			r.setDate(ZonedDateTime.now(fuso));
 			c.getReply().add(r);
 			return replyCommentDao.save(r);
 		} else {
