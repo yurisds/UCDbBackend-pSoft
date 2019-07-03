@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ucdb.model.Comment;
 import com.ucdb.service.CommentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Controller de Comentários")
 @RestController
 @RequestMapping({ "/v1/perfil" })
 public class CommentController {
@@ -21,6 +25,7 @@ public class CommentController {
 	@Autowired
 	CommentService commentService;
 
+	@ApiOperation(value = "Cria um comentário")
 	@PostMapping(value = "/comentar/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Comment> insertComment(@PathVariable long codigo, @PathVariable String email,

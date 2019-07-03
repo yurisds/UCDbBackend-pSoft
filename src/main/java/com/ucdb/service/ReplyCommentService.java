@@ -53,7 +53,7 @@ public class ReplyCommentService {
 		Comment c = p.getCommentById(idComment);
 		ReplyComment r = c.getReplyCommentById(idReplyComment);
 
-		if (r != null && p != null && c != null && r.getUser().equals(email)) {
+		if (r != null && p != null && c != null) {
 			r.setComentarioApagado(true);
 			p.removeCommentsNumber();
 			return this.replyCommentDao.save(r);
