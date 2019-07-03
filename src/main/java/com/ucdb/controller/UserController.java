@@ -2,6 +2,7 @@ package com.ucdb.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
+import com.ucdb.config.EmailController;
 import com.ucdb.exceptions.user.UserNotFoundException;
 import com.ucdb.model.User;
 import com.ucdb.service.UserService;
@@ -29,18 +30,11 @@ public class UserController {
 
 	private UserService userService;
 
+	@Autowired
+	private EmailController emailController;
+
 	public UserController(UserService userService) {
 		this.userService = userService;
-	}
-
-	@GetMapping("/private")
-	public String privateMsg() {
-		return "Mensagem privada";
-	}
-
-	@GetMapping("/public")
-	public String publicMsg() {
-		return "Mensagem publica";
 	}
 
 	@PostMapping(value = "/")
@@ -50,6 +44,8 @@ public class UserController {
 		if (newUser == null) {
 			throw new InternalError("Something went wrong");
 		}
+		this.emailController.sendMail(user.getEmail());
+
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 

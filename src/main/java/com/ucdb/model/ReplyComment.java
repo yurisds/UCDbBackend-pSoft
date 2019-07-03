@@ -65,8 +65,8 @@ public class ReplyComment {
 		this.text = text;
 	}
 
-	public String getUser() {
-		return user.getEmail();
+	public User getUser() {
+		return this.user;
 	}
 
 	public void setUser(User user) {
