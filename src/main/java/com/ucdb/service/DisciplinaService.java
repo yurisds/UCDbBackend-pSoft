@@ -27,8 +27,10 @@ public class DisciplinaService {
 	private PerfilDAO perfilDAO;
 
 	public Disciplina create(Disciplina disciplina) {
-
-		return this.disciplinaDao.save(disciplina);
+		if (disciplina.getNome() != null) {
+			return this.disciplinaDao.save(disciplina);
+		}
+		return null;
 	}
 
 	public List<Disciplina> findBySubString(String disciplina) {

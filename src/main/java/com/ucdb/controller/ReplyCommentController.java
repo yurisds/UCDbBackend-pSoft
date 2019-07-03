@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ucdb.exceptions.replyComment.ReplyCommentNotFound;
 import com.ucdb.model.ReplyComment;
 import com.ucdb.service.ReplyCommentService;
 
@@ -30,9 +31,11 @@ public class ReplyCommentController {
 	@ResponseBody
 	public ResponseEntity<ReplyComment> replyComment(@PathVariable long idComment, @PathVariable String email,
 			@RequestBody ReplyComment reply) {
-
-		return new ResponseEntity<ReplyComment>(this.replyCommentService.replyComment(idComment, email, reply),
-				HttpStatus.OK);
+		ReplyComment r = this.replyCommentService.replyComment(idComment, email, reply);
+		if (r == null) {
+			throw new ReplyCommentNotFound("Id do comentario pai esta incorreto ou o usuario nao existe");
+		}
+		return new ResponseEntity<ReplyComment>(r, HttpStatus.OK);
 	}
 
 	@ApiOperation(value = "remove um comentário de resposta")
@@ -42,7 +45,7 @@ public class ReplyCommentController {
 			@PathVariable long idPerfil, @PathVariable String email) {
 		ReplyComment r = this.replyCommentService.removeReplyComment(idComment, idReplyComment, idPerfil, email);
 		if (r == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			throw new ReplyCommentNotFound("Id do comentario pai esta incorreto ou o perfil nao existe");
 		} else {
 			return new ResponseEntity<ReplyComment>(r, HttpStatus.ACCEPTED);
 		}

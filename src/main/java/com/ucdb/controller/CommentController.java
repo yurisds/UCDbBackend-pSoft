@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ucdb.exceptions.comments.CommentNotFound;
 import com.ucdb.model.Comment;
 import com.ucdb.service.CommentService;
 
@@ -32,7 +33,7 @@ public class CommentController {
 			@RequestBody Comment comentario) {
 		Comment c = this.commentService.insertComment(codigo, email, comentario);
 		if (c == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			throw new CommentNotFound("Disciplina ou Usuario nao existe!");
 		} else {
 			return new ResponseEntity<Comment>(c, HttpStatus.ACCEPTED);
 		}
@@ -45,7 +46,7 @@ public class CommentController {
 			@PathVariable String email) {
 		Comment c = this.commentService.removeComment(idComment, idPerfil, email);
 		if (c == null) {
-			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+			throw new CommentNotFound("Disciplina ou Usuario nao existe!");
 		} else {
 			return new ResponseEntity<Comment>(c, HttpStatus.ACCEPTED);
 		}
