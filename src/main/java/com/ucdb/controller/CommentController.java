@@ -17,7 +17,7 @@ import com.ucdb.service.CommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@Api(value = "Controller de Comentários")
+@Api(value = "Controller de comentários")
 @RestController
 @RequestMapping({ "/v1/perfil" })
 public class CommentController {
@@ -38,6 +38,7 @@ public class CommentController {
 		}
 	}
 
+	@ApiOperation(value = "Remove um comentário")
 	@PutMapping(value = "/removecomment/{idComment}/{idPerfil}/{email}")
 	@ResponseBody
 	public ResponseEntity<Comment> removeComment(@PathVariable long idComment, @PathVariable long idPerfil,

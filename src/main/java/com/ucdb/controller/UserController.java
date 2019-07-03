@@ -21,9 +21,13 @@ import com.ucdb.exceptions.user.UserNotFoundException;
 import com.ucdb.model.User;
 import com.ucdb.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 //Os Métodos findByEmail e getAll foram criados apenas para testes. serão removidos depois
 
-@CrossOrigin(origins="*", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+@Api(value = "Controller de Usuários")
 @RestController
 @RequestMapping({ "/v1/users" })
 public class UserController {
@@ -37,6 +41,7 @@ public class UserController {
 		this.userService = userService;
 	}
 
+	@ApiOperation(value = "Cria um novo usuário")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<User> create(@RequestBody User user) {
@@ -49,6 +54,7 @@ public class UserController {
 		return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
 	}
 
+	@ApiOperation(value = "Remove um usuário")
 	@DeleteMapping(value = "/{email}")
 	public ResponseEntity delete(@RequestParam("email") String email) {
 		try {
@@ -59,7 +65,8 @@ public class UserController {
 		}
 
 	}
-	
+
+	@ApiOperation(value = "Busca um usuário pelo seu email")
 	@GetMapping(value = "/{email}")
 	@ResponseBody
 	public ResponseEntity<User> findByEmail(@PathVariable String email) {
@@ -71,6 +78,7 @@ public class UserController {
 
 	}
 
+	@ApiOperation(value = "Retorna todos os usuários")
 	@GetMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<List<User>> getAll() {

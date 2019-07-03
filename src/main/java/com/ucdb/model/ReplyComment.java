@@ -62,7 +62,7 @@ public class ReplyComment {
 	public String getText() {
 		if (!isComentarioApagado())
 			return text;
-		return "O comentario foi apagado";
+		return "";
 	}
 
 	public void setText(String text) {

@@ -15,7 +15,10 @@ import com.ucdb.service.UserService;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
+@Api(value = "Controller de login")
 @RestController
 @RequestMapping("/v1/auth")
 public class LoginController {
@@ -25,6 +28,7 @@ public class LoginController {
 	@Autowired
 	private UserService userService;
 
+	@ApiOperation(value = "Cria um token para o Usuário logar no UCDB")
 	@PostMapping("/login")
 	public LoginResponse authenticate(@RequestBody User user) throws ServletException {
 		// Recupera o usuario

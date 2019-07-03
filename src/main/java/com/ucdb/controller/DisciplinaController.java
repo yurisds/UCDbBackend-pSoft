@@ -2,6 +2,7 @@ package com.ucdb.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,10 @@ import com.ucdb.model.Perfil;
 import com.ucdb.service.DisciplinaService;
 import com.ucdb.service.PerfilService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Controller de Disciplinas")
 @RestController
 @RequestMapping({ "/v1/disciplinas" })
 public class DisciplinaController {
@@ -32,6 +37,7 @@ public class DisciplinaController {
 		this.disciplinaService = disciplinaService;
 	}
 
+	@ApiOperation(value = "Cria uma nova disciplina com o seu respectivo perfil")
 	@PostMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<Disciplina> create(@RequestBody Disciplina nome) {
@@ -45,6 +51,7 @@ public class DisciplinaController {
 	}
 	
 	//Only for deploy
+	@ApiOperation(value = "Cria novas disciplinas com os seus respectivos perfis")
 	@PostMapping(value = "/all")
 	@ResponseBody
 	public ResponseEntity<List<Disciplina>> createAll(@RequestBody List<Disciplina> disciplinas) {
@@ -58,12 +65,14 @@ public class DisciplinaController {
 		}
 	}
 	
+	@ApiOperation(value = "Retorna todas as disciplinas com seus respectivos IDs buscando através da substring")
 	@GetMapping(value = "/{substring}")
 	@ResponseBody
 	public ResponseEntity<List<Disciplina>> findBySubString(@PathVariable String substring) {
 		return new ResponseEntity<List<Disciplina>>(disciplinaService.findBySubString(substring), HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Retorna todas as disciplinas com seus respectivos IDs")
 	@GetMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<List<Disciplina>> getAll() {

@@ -14,13 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ucdb.model.ReplyComment;
 import com.ucdb.service.ReplyCommentService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Controller de comentários de respostas a outros comentários")
 @RestController
-@RequestMapping({"/v1/perfil"})
+@RequestMapping({ "/v1/perfil" })
 public class ReplyCommentController {
 
 	@Autowired
 	private ReplyCommentService replyCommentService;
-	
+
+	@ApiOperation(value = "Cria um comentário de resposta")
 	@PostMapping(value = "/comentar/reply/{idComment}/{email}")
 	@ResponseBody
 	public ResponseEntity<ReplyComment> replyComment(@PathVariable long idComment, @PathVariable String email,
@@ -29,11 +34,12 @@ public class ReplyCommentController {
 		return new ResponseEntity<ReplyComment>(this.replyCommentService.replyComment(idComment, email, reply),
 				HttpStatus.OK);
 	}
-	
+
+	@ApiOperation(value = "remove um comentário de resposta")
 	@PutMapping(value = "/removecommentreply/{idComment}/{idReplyComment}/{idPerfil}/{email}")
 	@ResponseBody
-	public ResponseEntity<ReplyComment> removeComment(@PathVariable long idComment,@PathVariable long idReplyComment, @PathVariable long idPerfil, 
-			@PathVariable String email) {
+	public ResponseEntity<ReplyComment> removeComment(@PathVariable long idComment, @PathVariable long idReplyComment,
+			@PathVariable long idPerfil, @PathVariable String email) {
 		ReplyComment r = this.replyCommentService.removeReplyComment(idComment, idReplyComment, idPerfil, email);
 		if (r == null) {
 			return new ResponseEntity(HttpStatus.BAD_REQUEST);

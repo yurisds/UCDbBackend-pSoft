@@ -19,6 +19,10 @@ import com.ucdb.model.Perfil;
 import com.ucdb.model.ReplyComment;
 import com.ucdb.service.PerfilService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
+@Api(value = "Controller de Perfil")
 @RestController
 @RequestMapping({ "/v1/perfil" })
 public class PerfilController {
@@ -26,6 +30,7 @@ public class PerfilController {
 	@Autowired
 	private PerfilService perfilService;
 
+	@ApiOperation(value = "Retorna todos os perfis das disciplinas")
 	@GetMapping(value = "/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAll() {
@@ -36,6 +41,7 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Retorna todos os perfis ordenados pela quantidade de likes")
 	@GetMapping(value = "/likes/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAllByLikes() {
@@ -46,6 +52,7 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Retorna todos os perfis ordenados pelo número de comentários")
 	@GetMapping(value = "/comments/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAllByComments() {
@@ -56,6 +63,7 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Busca o perfil baseado no seu código")
 	@GetMapping(value = "/codigo/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Perfil> getById(@PathVariable long codigo, @PathVariable String email) {
@@ -66,6 +74,7 @@ public class PerfilController {
 		return new ResponseEntity<Perfil>(perfil, HttpStatus.OK);
 	}
 
+	@ApiOperation(value = "Adiciona um like do usuário a determinado perfil")
 	@PostMapping(value = "/curtir/{codigo}/{email}")
 	@ResponseBody
 	public ResponseEntity<Perfil> usuarioCurtiu(@PathVariable long codigo, @PathVariable String email) {
