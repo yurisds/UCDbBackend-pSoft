@@ -45,7 +45,7 @@
         - `/UserService` Service responsável pelo cadastramento, remoção e buscas de usuários.
     - `/filter` Diretório onde encontra-se o arquivo TokenFilter.java.
         - `/TokenFilter` Responsável pela autorização do usuario para acesso ao sistema, validando ou não o token.
-    - `/filter` Diretório onde encontra-se os pacotes com exceções para cada entidade do sistema, além da RestExceptionHandler.java onde é indicado o HttpStatus.
+    - `/exceptions` Diretório onde encontra-se os pacotes com exceções para cada entidade do sistema, além da RestExceptionHandler.java onde é indicado o HttpStatus.
         - `/comments` Pacote que contem as exceções para situações na entidade Comments.
         - `/disciplina` Pacote que contem as exceções para situações na entidade Disciplina.
         - `/email` Pacote que contem as exceções para situações de validação de email.
@@ -55,5 +55,7 @@
         
 
 
-> link para a documentação da API gerada pelo swagger: https://ucdb-final.herokuapp.com/api/swagger-ui.html#/
+> Link para a documentação da API gerada pelo swagger: https://ucdb-final.herokuapp.com/api/swagger-ui.html#/
+
+> Link da aplicação no frontend http://ucdbfront.herokuapp.com/
 
