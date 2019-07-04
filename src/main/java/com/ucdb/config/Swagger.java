@@ -37,7 +37,7 @@ public class Swagger {
                 "API REST de disciplinas da UFCG.",
                 "1.0",
                 "Terms of Service",
-                new Contact("Yuri Souza & Matheus Santana", "link",
+                new Contact("Yuri Souza & Matheus Santana", "http://ucdbfront.herokuapp.com/",
                         "ucdbprojsw@gmail.com"),
                 "Apache License Version 2.0",
                 "https://www.apache.org/licesen.html", new ArrayList<VendorExtension>()
