@@ -102,7 +102,7 @@ public class PerfilService {
 	}
 
 	public List<Perfil> getAll() {
-		return this.perfilDAO.findAll();
+		return this.perfilDAO.findAllById();
 	}
 
 	public List<Perfil> getAllByLikes() {
