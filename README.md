@@ -59,3 +59,8 @@
 
 > Link da aplicação no frontend http://ucdbfront.herokuapp.com/
 
+
+## Desenvolvedores
+
+- [Yuri Souza](https://github.com/yuri-s-s)
+- [Matheus Santana](https://github.com/mathsantana)
