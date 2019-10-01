@@ -1,17 +1,16 @@
 # UCDbBackend
-
 > Repositório referente ao backend do projeto final da disciplina de Projeto de Software na UFCG desenvolvida em Spring MVC.
 
-> Esse projeto tem como finalidade simular uma rede social de disciplinas onde cada disciplina tem um perfil associado, possuindo opções de likes e comentarios. 
+Esse projeto tem como finalidade simular uma rede social de disciplinas onde cada disciplina tem um perfil associado, possuindo opções de likes e comentarios. 
 
 ## O projeto utilizou das seguintes ferramentas:
-- Thymeleaf
-- Spring Boot
-- Spring Data
-- Spring Security
-- Java 8
-- PostgreSQL
-- Heroku(Deploy)
+    - Thymeleaf
+    - Spring Boot
+    - Spring Data
+    - Spring Security
+    - Java 8
+    - PostgreSQL
+    - Heroku(Deploy)
 
 ## Diretórios usados:
 - `UCDbBackend/src/main/java/com/ucdb` Nesse caminho está todas as pastas nescessárias para o funcionamento do sistema.
@@ -52,15 +51,15 @@
         - `/perfil` Pacote que contem as exceções para situações na entidade Perfil.
         - `/replyComment` Pacote que contem as exceções para situações na entidade ReplyComment.
         - `/user` Pacote que contem as exceções para situações na entidade User.
-        
 
+## Documentação da API:
+- [A documentação da API gerada pelo Swagger](https://ucdb-final.herokuapp.com/api/swagger-ui.html#/)
 
-> Link para a documentação da API gerada pelo swagger: https://ucdb-final.herokuapp.com/api/swagger-ui.html#/
-
-> Link da aplicação no frontend http://ucdbfront.herokuapp.com/
+## Frontend:
+- [Repositório da aplicação do frontend](https://github.com/mathsantana/UCDbFrontend)
+- [Link da aplicação no frontend](http://ucdbfront.herokuapp.com/)
 
 
 ## Desenvolvedores
-
 - [Yuri Souza](https://github.com/yuri-s-s)
 - [Matheus Santana](https://github.com/mathsantana)
