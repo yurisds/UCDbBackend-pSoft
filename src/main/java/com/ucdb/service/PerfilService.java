@@ -112,5 +112,9 @@ public class PerfilService {
 	public List<Perfil> getAllByComments() {
 		return this.perfilDAO.findAllByComments();
 	}
+	
+	public List<Perfil> getAllByCommentsAsc() {
+		return this.perfilDAO.findAllByCommentsAsc();
+	}
 
 }
