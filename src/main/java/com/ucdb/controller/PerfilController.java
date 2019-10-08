@@ -52,11 +52,22 @@ public class PerfilController {
 		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
 	}
 
-	@ApiOperation(value = "Retorna todos os perfis ordenados pelo número de comentários")
+	@ApiOperation(value = "Retorna todos os perfis ordenados de forma decrescente e pelo número de comentários")
 	@GetMapping(value = "/comments/")
 	@ResponseBody
 	public ResponseEntity<List<Perfil>> getAllByComments() {
 		List<Perfil> listPerfil = this.perfilService.getAllByComments();
+		if (listPerfil == null) {
+			return new ResponseEntity(HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<List<Perfil>>(listPerfil, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "Retorna todos os perfis ordenados de forma crescente pelo número de comentários")
+	@GetMapping(value = "/comments/asc")
+	@ResponseBody
+	public ResponseEntity<List<Perfil>> getAllByCommentsAsc() {
+		List<Perfil> listPerfil = this.perfilService.getAllByCommentsAsc();
 		if (listPerfil == null) {
 			return new ResponseEntity(HttpStatus.NOT_FOUND);
 		}

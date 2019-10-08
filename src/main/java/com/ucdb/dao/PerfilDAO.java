@@ -24,4 +24,7 @@ public interface PerfilDAO extends JpaRepository<Perfil, Long>{
 	@Query(value = "select u from Perfil u order by u.commentsNumber DESC, u.id ASC")
 	public List<Perfil> findAllByComments();
 	
+	@Query(value = "select u from Perfil u order by u.commentsNumber ASC, u.id ASC")
+	public List<Perfil> findAllByCommentsAsc();
+	
 }
